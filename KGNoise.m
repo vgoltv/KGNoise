@@ -15,7 +15,7 @@ static inline NSInteger kgnoise_rand(){
 	return (kgnoise_rseed = (kgnoise_rseed * 214013 + 2531011) & ((1U << 31) - 1)) >> 16;
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 static inline CGFloat *gradientComponentsForColors(UIColor *color1, UIColor *color2){
 #else
 static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *color2){
@@ -76,7 +76,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
         free(bitmapData);
     });
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
     CGContextRef context = UIGraphicsGetCurrentContext();
 #else
     CGContextRef context = [[NSGraphicsContext currentContext] graphicsPort];
@@ -86,7 +86,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
     CGContextSetAlpha(context, opacity);
     CGContextSetBlendMode(context, blendMode);
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
     if([[UIScreen mainScreen] respondsToSelector:@selector(scale)]){
         CGFloat scaleFactor = [[UIScreen mainScreen] scale];
         CGContextScaleCTM(context, 1/scaleFactor, 1/scaleFactor);
@@ -107,7 +107,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
 
 #pragma mark - KGNoise Color
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 @implementation UIColor(KGNoise)
 - (UIColor *)colorWithNoiseWithOpacity:(CGFloat)opacity{
     return [self colorWithNoiseWithOpacity:opacity andBlendMode:kCGBlendModeScreen];
@@ -143,7 +143,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
 
 #pragma mark - KGNoise Image
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 @implementation UIImage(KGNoise)
 - (UIImage *)imageWithNoiseOpacity:(CGFloat)opacity{
     return [self imageWithNoiseOpacity:opacity andBlendMode:kCGBlendModeScreen];
@@ -189,7 +189,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
 
 @implementation KGNoiseView
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 - (instancetype)initWithFrame:(CGRect)frameRect{
 #else
 - (instancetype)initWithFrame:(NSRect)frameRect{
@@ -208,7 +208,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
 }
 
 - (void)setup{
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
     if(!self.backgroundColor){
         self.backgroundColor = [UIColor grayColor];
     }
@@ -222,7 +222,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
     self.noiseBlendMode = kCGBlendModeScreen;
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 #else
 - (void)setBackgroundColor:(NSColor *)backgroundColor{
     if(_backgroundColor != backgroundColor){
@@ -235,7 +235,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
 - (void)setNoiseOpacity:(CGFloat)noiseOpacity{
     if(_noiseOpacity != noiseOpacity){
         _noiseOpacity = noiseOpacity;
-#if TARGET_OS_IPHONE        
+#if TARGET_OS_IPHONE || TARGET_OS_TV
         [self setNeedsDisplay];
 #else
         [self setNeedsDisplay:YES];
@@ -246,7 +246,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
 - (void)setNoiseBlendMode:(CGBlendMode)noiseBlendMode{
     if(_noiseBlendMode != noiseBlendMode){
         _noiseBlendMode = noiseBlendMode;
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
         [self setNeedsDisplay];
 #else
         [self setNeedsDisplay:YES];
@@ -254,7 +254,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
     }
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 - (void)drawRect:(CGRect)dirtyRect{
     CGContextRef context = UIGraphicsGetCurrentContext();    
 #else
@@ -277,7 +277,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
     self.gradientDirection = KGLinearGradientDirection270Degrees;
 }
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 - (void)setAlternateBackgroundColor:(UIColor *)alternateBackgroundColor{
     if(_alternateBackgroundColor != alternateBackgroundColor){
         _alternateBackgroundColor = alternateBackgroundColor;
@@ -293,7 +293,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
 }
 #endif
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 - (void)drawRect:(CGRect)dirtyRect{
     CGContextRef context = UIGraphicsGetCurrentContext();
 #else
@@ -347,7 +347,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
 
 @implementation KGNoiseRadialGradientView
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 - (void)setAlternateBackgroundColor:(UIColor *)alternateBackgroundColor{
     if(_alternateBackgroundColor != alternateBackgroundColor){
         _alternateBackgroundColor = alternateBackgroundColor;
@@ -363,7 +363,7 @@ static inline CGFloat *gradientComponentsForColors(NSColor *color1, NSColor *col
 }
 #endif
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE ||
 - (void)drawRect:(CGRect)dirtyRect{
     CGContextRef context = UIGraphicsGetCurrentContext();
 #else

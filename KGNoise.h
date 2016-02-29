@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 #import <UIKit/UIKit.h>
 #else
 #import <Cocoa/Cocoa.h>
@@ -24,7 +24,7 @@
 
 #pragma mark - KGNoise Color
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 @interface UIColor(KGNoise)
 - (UIColor *)colorWithNoiseWithOpacity:(CGFloat)opacity;
 - (UIColor *)colorWithNoiseWithOpacity:(CGFloat)opacity andBlendMode:(CGBlendMode)blendMode;
@@ -38,7 +38,7 @@
 
 #pragma mark - KGNoise Image
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 @interface UIImage(KGNoise)
 - (UIImage *)imageWithNoiseOpacity:(CGFloat)opacity;
 - (UIImage *)imageWithNoiseOpacity:(CGFloat)opacity andBlendMode:(CGBlendMode)blendMode;
@@ -52,7 +52,7 @@
 
 #pragma mark - KGNoiseView
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 @interface KGNoiseView : UIView
 #else
 @interface KGNoiseView : NSView
@@ -72,7 +72,7 @@ typedef NS_ENUM(NSUInteger, KGLinearGradientDirection){
 };
 
 @interface KGNoiseLinearGradientView : KGNoiseView
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 @property (strong, nonatomic) UIColor *alternateBackgroundColor;
 #else
 @property (strong, nonatomic) NSColor *alternateBackgroundColor;
@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, KGLinearGradientDirection){
 #pragma mark - KGNoiseRadialGradientView
 
 @interface KGNoiseRadialGradientView : KGNoiseView
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE || TARGET_OS_TV
 @property (strong, nonatomic) UIColor *alternateBackgroundColor;
 #else
 @property (strong, nonatomic) NSColor *alternateBackgroundColor;
